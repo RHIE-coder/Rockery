@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # =====================================================
-# 🪨 Rockery Common Runtime
+# 🪨 Rockury Common Runtime
 # =====================================================
 
 # Color definitions
@@ -30,6 +30,7 @@ fi
 # Required images
 export NODE_IMAGE="node:24"
 export PROTOC_IMAGE="rvolosatovs/protoc:latest"
+export UV_IMAGE="ghcr.io/astral-sh/uv:latest"
 
 # ----------------------------------------
 # 🪨 Rockery Banner
@@ -52,5 +53,6 @@ echo -e "${BRIGHT_BLACK}──────────────────�
 # ----------------------------------------
 echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Node ${RESET} ${BRIGHT_WHITE}${NODE_IMAGE}${RESET}"
 echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Protocol Buffers ${RESET} ${BRIGHT_WHITE}${PROTOC_IMAGE}${RESET}"
+echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} UV (Python) ${RESET} ${BRIGHT_WHITE}${UV_IMAGE}${RESET}"
 
 echo -e "${BRIGHT_RED}───────────────────────────────────────────────${RESET}\n"

@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ---------------------------------------
+# Resolve paths
+# ---------------------------------------
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CMD_DIR="${SCRIPT_DIR}/cmd"
+
+# ---------------------------------------
+# Parse subcommand
+# ---------------------------------------
+SUBCOMMAND="${1:-}"
+
+if [[ -z "$SUBCOMMAND" ]]; then
+  echo "Usage: rky <subcommand> [args...]"
+  echo ""
+  echo "Available subcommands:"
+  for f in "${CMD_DIR}"/*; do
+    if [[ -x "$f" ]]; then
+      echo "  - $(basename "$f")"
+    fi
+  done
+  exit 1
+fi
+
+# ---------------------------------------
+# Find and execute subcommand
+# ---------------------------------------
+shift
+TARGET_CMD="${CMD_DIR}/${SUBCOMMAND}"
+
+if [[ -x "$TARGET_CMD" ]]; then
+  exec "$TARGET_CMD" "$@"
+else
+  echo "❌ Unknown subcommand: ${SUBCOMMAND}"
+  echo ""
+  echo "Available subcommands:"
+  for f in "${CMD_DIR}"/*; do
+    if [[ -x "$f" ]]; then
+      echo "  - $(basename "$f")"
+    fi
+  done
+  exit 1
+fi
