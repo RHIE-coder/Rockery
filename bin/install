@@ -2,22 +2,7 @@
 set -euo pipefail
 
 NODE_IMAGE="node:24"
-
-if [ -t 1 ]; then
-  RED="\033[31m"
-  GREEN="\033[32m"
-  YELLOW="\033[33m"
-  BLUE="\033[34m"
-  BOLD="\033[1m"
-  RESET="\033[0m"
-else
-  RED=""
-  GREEN=""
-  YELLOW=""
-  BLUE=""
-  BOLD=""
-  RESET=""
-fi
+PROTOC_IMAGE="rvolosatovs/protoc:latest"
 
 if ! command -v docker >/dev/null 2>&1; then
   printf "%bDocker가 설치되어 있지 않습니다. Docker를 먼저 설치하세요.%b\n" "${RED}${BOLD}" "${RESET}" >&2
@@ -35,14 +20,25 @@ else
   exit 1
 fi
 
-if docker image inspect "$NODE_IMAGE" >/dev/null 2>&1; then
-  printf "%b이미지 '%s' 가 이미 존재합니다.%b\n" "${GREEN}${BOLD}" "$NODE_IMAGE" "${RESET}"
-else
-  printf "%b이미지 '%s' 가 없습니다. Pull 중...%b\n" "${YELLOW}${BOLD}" "$NODE_IMAGE" "${RESET}"
-  if docker pull "$NODE_IMAGE"; then
-    printf "%b이미지 '%s' 를 성공적으로 가져왔습니다.%b\n" "${GREEN}${BOLD}" "$NODE_IMAGE" "${RESET}"
-  else
-    printf "%b이미지 '%s' 를 가져오지 못했습니다.%b\n" "${RED}${BOLD}" "$NODE_IMAGE" "${RESET}" >&2
-    exit 1
+ensure_image() {
+  local image="$1"
+
+  if docker image inspect "$image" >/dev/null 2>&1; then
+    printf "%b이미지 '%s' 가 이미 존재합니다.%b\n" "${GREEN}${BOLD}" "$image" "${RESET}"
+    return
   fi
-fi
+
+  local inspect_error
+  inspect_error="$(docker image inspect "$image" 2>&1 | head -n 1 || true)"
+
+  if ! docker image inspect "$image" >/dev/null 2>&1; then
+    printf "%b이미지 '%s' 가 없습니다. Pull 중...%b\n" "${YELLOW}${BOLD}" "$image" "${RESET}"
+    docker pull "$image"
+    printf "%b이미지 '%s' 를 성공적으로 가져왔습니다.%b\n" "${GREEN}${BOLD}" "$image" "${RESET}"
+  else
+    printf "%b이미지 '%s' 가 이미 존재합니다.%b\n" "${GREEN}${BOLD}" "$image" "${RESET}"
+  fi
+}
+
+ensure_image "$NODE_IMAGE"
+ensure_image "$PROTOC_IMAGE"

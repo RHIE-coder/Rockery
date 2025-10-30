@@ -7,10 +7,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # version 스크립트 source (현재 스크립트 기준 상대경로)
 source "${SCRIPT_DIR}/version"
 
-NODE_IMAGE=node:24
-
 docker run --rm -it \
-  -v "$PWD":/app \
-  -w /app \
-  "$NODE_IMAGE" \
-  node "$@"
+  -v "$PWD":/work \
+  -w /work \
+  "$PROTOC_IMAGE" \
+  protoc "$@"
