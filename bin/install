@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+NODE_IMAGE="node:24"
+
+if [ -t 1 ]; then
+  RED="\033[31m"
+  GREEN="\033[32m"
+  YELLOW="\033[33m"
+  BLUE="\033[34m"
+  BOLD="\033[1m"
+  RESET="\033[0m"
+else
+  RED=""
+  GREEN=""
+  YELLOW=""
+  BLUE=""
+  BOLD=""
+  RESET=""
+fi
+
+if ! command -v docker >/dev/null 2>&1; then
+  printf "%bDocker가 설치되어 있지 않습니다. Docker를 먼저 설치하세요.%b\n" "${RED}${BOLD}" "${RESET}" >&2
+  exit 1
+fi
+
+printf "%bDocker 설치됨:%b %s\n" "${BLUE}${BOLD}" "${RESET}" "$(docker --version)"
+
+if docker compose version >/dev/null 2>&1; then
+  printf "%bDocker Compose 설치됨:%b %s\n" "${BLUE}${BOLD}" "${RESET}" "$(docker compose version | head -n 1)"
+elif command -v docker-compose >/dev/null 2>&1; then
+  printf "%bDocker Compose 설치됨:%b %s\n" "${BLUE}${BOLD}" "${RESET}" "$(docker-compose --version)"
+else
+  printf "%bDocker Compose가 설치되어 있지 않습니다. Docker Compose를 먼저 설치하세요.%b\n" "${RED}${BOLD}" "${RESET}" >&2
+  exit 1
+fi
+
+if docker image inspect "$NODE_IMAGE" >/dev/null 2>&1; then
+  printf "%b이미지 '%s' 가 이미 존재합니다.%b\n" "${GREEN}${BOLD}" "$NODE_IMAGE" "${RESET}"
+else
+  printf "%b이미지 '%s' 가 없습니다. Pull 중...%b\n" "${YELLOW}${BOLD}" "$NODE_IMAGE" "${RESET}"
+  if docker pull "$NODE_IMAGE"; then
+    printf "%b이미지 '%s' 를 성공적으로 가져왔습니다.%b\n" "${GREEN}${BOLD}" "$NODE_IMAGE" "${RESET}"
+  else
+    printf "%b이미지 '%s' 를 가져오지 못했습니다.%b\n" "${RED}${BOLD}" "$NODE_IMAGE" "${RESET}" >&2
+    exit 1
+  fi
+fi

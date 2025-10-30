@@ -1,0 +1,7 @@
+NODE_IMAGE=node:24
+
+docker run --rm -it \
+  -v "$PWD":/app \
+  -w /app \
+  "$NODE_IMAGE" \
+  node "$@"
