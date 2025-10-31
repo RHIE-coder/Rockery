@@ -61,5 +61,6 @@ echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Node ${RESET} ${BRIGHT_WHITE}${NODE_I
 echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} UV (Python) ${RESET} ${BRIGHT_WHITE}${UV_IMAGE}${RESET}"
 echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Golang ${RESET} ${BRIGHT_WHITE}${GO_IMAGE}${RESET}"
 echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Java ${RESET} ${BRIGHT_WHITE}${JAVA_IMAGE}${RESET}"
+echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Rsync ${RESET} ${BRIGHT_WHITE}${RSYNC_IMAGE}${RESET}"
 
 echo -e "${BRIGHT_RED}───────────────────────────────────────────────${RESET}\n"
