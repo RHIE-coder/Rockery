@@ -8,5 +8,5 @@ source "${SCRIPT_DIR}/version"
 docker run --rm -it \
   -v "$PWD":/app \
   -w /app \
-  "$UV_IMAGE" \
-  uv "$@"
+  "$JAVA_IMAGE" \
+  javac "$@"

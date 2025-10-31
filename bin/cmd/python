@@ -9,4 +9,4 @@ docker run --rm -it \
   -v "$PWD":/app \
   -w /app \
   "$UV_IMAGE" \
-  uv "$@"
+  python "$@"
