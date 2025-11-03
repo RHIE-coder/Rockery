@@ -35,6 +35,7 @@ export UV_IMAGE="ghcr.io/astral-sh/uv:python3.12-alpine"
 export GO_IMAGE="golang:latest"
 export JAVA_IMAGE="openjdk:25-slim"
 export RSYNC_IMAGE="instrumentisto/rsync-ssh:latest"
+export MERMAID_CLI_IMAGE="minlag/mermaid-cli:latest"
 
 # ----------------------------------------
 # 🪨 Rockery Banner
@@ -62,5 +63,6 @@ echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} UV (Python) ${RESET} ${BRIGHT_WHITE}$
 echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Golang ${RESET} ${BRIGHT_WHITE}${GO_IMAGE}${RESET}"
 echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Java ${RESET} ${BRIGHT_WHITE}${JAVA_IMAGE}${RESET}"
 echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Rsync ${RESET} ${BRIGHT_WHITE}${RSYNC_IMAGE}${RESET}"
+echo -e "${BG_BRIGHT_GREEN}${BLACK}${BOLD} Mermaid CLI ${RESET} ${BRIGHT_WHITE}${MERMAID_CLI_IMAGE}${RESET}"
 
 echo -e "${BRIGHT_RED}───────────────────────────────────────────────${RESET}\n"
