@@ -81,8 +81,8 @@ add_to_rcfile() {
     echo -e " | ${GREEN}$line${RESET}"
   else
     echo -e "" >> "$rcfile"
-    echo -e "${BRIGHT_MAGENTA}# Added by rky installer${RESET}" >> "$rcfile"
-    echo -e "${BRIGHT_MAGENTA}$line${RESET}" >> "$rcfile"
+    echo -e "# Added by rky installer" >> "$rcfile"
+    echo -e "$line" >> "$rcfile"
     echo -e "${BRIGHT_MAGENTA}✅ Added rky directory to PATH in $rcfile${RESET}"
   fi
 }
